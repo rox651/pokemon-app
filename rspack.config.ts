@@ -1,6 +1,7 @@
 require("dotenv").config();
 import { defineConfig } from "@rspack/cli";
 import { rspack } from "@rspack/core";
+import path from "path";
 import { ReactRefreshRspackPlugin } from "@rspack/plugin-react-refresh";
 
 import { TanStackRouterRspack } from "@tanstack/router-plugin/rspack";
@@ -15,6 +16,9 @@ export default defineConfig({
   },
   resolve: {
     extensions: ["...", ".ts", ".tsx", ".jsx"],
+    alias: {
+      "@": path.resolve(__dirname, "src"),
+    },
   },
   module: {
     rules: [
