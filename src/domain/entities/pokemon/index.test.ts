@@ -1,6 +1,6 @@
 import { describe, expect, test } from "@jest/globals";
 import { Pokemon } from "./";
-import { mockPokemon } from "@/test/pokemon/pokemon/mockData";
+import { mockPokemon } from "@/test/pokemon/mockData";
 
 describe("Pokemon Entity", () => {
   test("should have name and url", () => {

@@ -1,7 +1,7 @@
 import { describe, expect, test, jest } from "@jest/globals";
 import { PokemonApiAdapter } from "./";
 import { axiosClient } from "@/infrastructure/http/axiosClient";
-import { mockPokemon } from "@/test/pokemon/pokemon/mockData";
+import { mockPokemon } from "@/test/pokemon/mockData";
 
 import type { Pokemon, PokemonMetadata } from "@/domain/entities/pokemon";
 
