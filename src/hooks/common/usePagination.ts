@@ -1,24 +1,35 @@
-import { useMemo } from "react";
+import { useState } from "react";
+import {
+  useReactTable,
+  getCoreRowModel,
+  getPaginationRowModel,
+  getSortedRowModel,
+  type SortingState,
+  type ColumnDef,
+} from "@tanstack/react-table";
 
-type PaginationProps = {
-  totalCount: number;
-  pageSize: number;
-  currentPage: number;
-};
+export const usePagination = <T>(
+  data: T[],
+  columns: ColumnDef<T, unknown>[],
+  initialPageSize = 10,
+) => {
+  const [pagination, setPagination] = useState({
+    pageIndex: 0,
+    pageSize: initialPageSize,
+  });
+  const [sorting, setSorting] = useState<SortingState>([]);
 
-export const usePagination = ({
-  totalCount,
-  pageSize,
-  currentPage,
-}: PaginationProps) => {
-  const totalPages = useMemo(() => {
-    return Math.ceil(totalCount / pageSize);
-  }, [totalCount, pageSize]);
+  const table = useReactTable({
+    data,
+    columns,
+    getCoreRowModel: getCoreRowModel(),
+    getPaginationRowModel: getPaginationRowModel(),
+    getSortedRowModel: getSortedRowModel(),
+    state: { pagination, sorting },
+    onPaginationChange: setPagination,
+    onSortingChange: setSorting,
+    autoResetPageIndex: false,
+  });
 
-  return {
-    totalPages,
-    currentPage,
-    isFirstPage: currentPage === 1,
-    isLastPage: currentPage === totalPages,
-  };
+  return table;
 };

@@ -2,11 +2,15 @@ import type { Pokemon } from "@/domain/entities/pokemon";
 
 interface PokemonCardViewProps {
   pokemon: Pokemon;
+  onSelect: (pokemon: Pokemon) => void;
 }
 
-const PokemonCardView = ({ pokemon }: PokemonCardViewProps) => {
+const PokemonCardView = ({ pokemon, onSelect }: PokemonCardViewProps) => {
   return (
-    <article className="flex flex-col items-center pt-20 p-4 border group border-gray-500/10  rounded-xl shadow relative">
+    <button
+      onClick={() => onSelect(pokemon)}
+      className="flex flex-col items-center pt-20 p-4 border group border-gray-500/10  rounded-xl shadow relative"
+    >
       <h3 className="text-gray-400 text-2xl  font-bold mb-2 right-5 top-5 absolute">
         #{pokemon.id}
       </h3>
@@ -18,7 +22,7 @@ const PokemonCardView = ({ pokemon }: PokemonCardViewProps) => {
       <h3 className="relative z-10 text-lg capitalize mb-3 font-black group-hover:rotate-5 transition-all group-hover:-translate-y-1 border border-gray-300 group-hover:bg-blue-300 px-3 rounded-xl">
         {pokemon.name}
       </h3>
-    </article>
+    </button>
   );
 };
 
