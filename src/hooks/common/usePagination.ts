@@ -35,18 +35,16 @@ export const usePagination = <T>(
    });
 
    const tableState = table.getState();
-   const pageSize = useMemo(() => {
-      return tableState.pagination.pageSize;
-   }, [tableState]);
+   const pageSize = tableState.pagination.pageSize;
 
    useEffect(() => {
-      if (filterType && pageSize) {
+      if (filterType || pageSize) {
          setPagination({
             pageIndex: 0,
             pageSize: initialPageSize,
          });
       }
-   }, [filterType, table]);
+   }, [filterType, pageSize]);
 
    return table;
 };
