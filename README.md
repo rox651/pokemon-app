@@ -2,7 +2,7 @@
 
 A modern React app for browsing and filtering Pokémon, built with Bun, Docker Compose, and Rspack.
 
-Url:
+Url: https://pokemon-app-q2af.vercel.app/
 
 ## Features
 
