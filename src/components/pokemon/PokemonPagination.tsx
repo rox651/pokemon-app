@@ -14,7 +14,7 @@ interface PokemonPaginationProps {
 
 const PokemonPagination = ({ table }: PokemonPaginationProps) => {
    return (
-      <div className="[&>button]:cursor-pointer flex justify-center items-center gap-2 mt-4 mb-20">
+      <div className="[&>button]:cursor-pointer flex justify-center items-center gap-2 mt-4">
          <button
             onClick={() => table.firstPage()}
             disabled={!table.getCanPreviousPage()}

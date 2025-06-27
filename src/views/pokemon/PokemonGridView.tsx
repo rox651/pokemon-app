@@ -13,7 +13,7 @@ const PokemonGridView = ({ pokemons, onSelect }: PokemonGridViewProps) => {
    }
 
    return (
-      <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-y-20 mt-10 gap-x-4 p-4">
+      <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-y-20 gap-x-4 p-4 mt-20">
          {pokemons.map(pokemon => (
             <PokemonCardView
                onSelect={onSelect}

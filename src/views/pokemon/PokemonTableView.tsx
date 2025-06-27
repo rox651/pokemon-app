@@ -12,7 +12,7 @@ const PokemonTableView = ({ table }: PokemonTableViewProps) => {
    }
 
    return (
-      <div className="w-full overflow-x-auto">
+      <div className="w-full overflow-x-auto mt-10">
          <table className="min-w-[600px] w-full table-auto border-collapse border border-gray-300 text-sm sm:text-base">
             <thead className="bg-gray-100">
                {table.getHeaderGroups().map(headerGroup => (

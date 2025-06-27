@@ -13,6 +13,8 @@ import PokemonGridSkeleton from "@/components/pokemon/PokemonGridSkeleton";
 import PokemonTableSkeleton from "@/components/pokemon/PokemonTableSkeleton";
 import PokemonPagination from "@/components/pokemon/PokemonPagination";
 import PokemonControls from "@/components/pokemon/PokemonControls";
+import PokemonControlsSkeleton from "@/components/pokemon/PokemonControlsSkeleton";
+import PokemonPaginationSkeleton from "@/components/pokemon/PokemonPaginationSkeleton";
 
 import { pokemonColumns } from "@/helpers/pokemon/pokemonColumns";
 import { filterPokemonsByType } from "@/helpers/pokemon/filterPokemonsByType";
@@ -47,6 +49,12 @@ function RouteComponent() {
    return (
       <div>
          <h1 className="text-3xl lg:text-5xl font-black text-center mt-10">Pokemon List</h1>
+
+         {isLoadingPokemons && <PokemonControlsSkeleton />}
+         {isLoadingPokemons && <PokemonPaginationSkeleton />}
+         {isLoadingPokemons && currentView === "grid" && <PokemonGridSkeleton />}
+         {isLoadingPokemons && currentView === "table" && <PokemonTableSkeleton />}
+
          {!isLoadingPokemons && (
             <PokemonControls
                currentView={currentView}
@@ -54,9 +62,6 @@ function RouteComponent() {
                onFilterChange={handleFilterChange}
             />
          )}
-
-         {isLoadingPokemons && currentView === "grid" && <PokemonGridSkeleton />}
-         {isLoadingPokemons && currentView === "table" && <PokemonTableSkeleton />}
          {filteredPokemons && filteredPokemons.length > 0 && (
             <>
                <PokemonPagination table={table} />
