@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import {
    useReactTable,
    getCoreRowModel,
@@ -21,19 +21,8 @@ export const usePagination = <T>(
    });
    const [sorting, setSorting] = useState<SortingState>([]);
 
-   const filteredData = useMemo(() => {
-      if (!data || !filterType) return data;
-
-      return data.filter((item: any) => {
-         if (item.types && Array.isArray(item.types)) {
-            return item.types.some((type: any) => type.type.name === filterType);
-         }
-         return true;
-      });
-   }, [data, filterType]);
-
    const table = useReactTable({
-      data: filteredData ?? [],
+      data: data ?? [],
       columns,
       getCoreRowModel: getCoreRowModel(),
       getPaginationRowModel: getPaginationRowModel(),
@@ -44,6 +33,20 @@ export const usePagination = <T>(
       onSortingChange: setSorting,
       autoResetPageIndex: false,
    });
+
+   const tableState = table.getState();
+   const pageSize = useMemo(() => {
+      return tableState.pagination.pageSize;
+   }, [tableState]);
+
+   useEffect(() => {
+      if (filterType && pageSize) {
+         setPagination({
+            pageIndex: 0,
+            pageSize: initialPageSize,
+         });
+      }
+   }, [filterType, table]);
 
    return table;
 };

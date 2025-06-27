@@ -40,7 +40,7 @@ function RouteComponent() {
    const columns = pokemonColumns(onSelect);
    const { data: pokemons, isLoading: isLoadingPokemons } = useGetAllPokemons();
    const filteredPokemons = filterPokemonsByType(pokemons, filterType);
-   const table = usePagination(filteredPokemons, columns, 10);
+   const table = usePagination(filteredPokemons, columns, 10, filterType);
 
    const handleFilterChange = (selectedType: string | null) => {
       setFilterType(selectedType);
