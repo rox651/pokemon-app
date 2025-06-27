@@ -15,6 +15,7 @@ import PokemonPagination from "@/components/pokemon/PokemonPagination";
 import PokemonControls from "@/components/pokemon/PokemonControls";
 
 import { pokemonColumns } from "@/helpers/pokemon/pokemonColumns";
+import { filterPokemonsByType } from "@/helpers/pokemon/filterPokemonsByType";
 
 import type { PokemonAdapted } from "@/domain/entities/pokemon";
 
@@ -36,7 +37,8 @@ function RouteComponent() {
 
    const columns = pokemonColumns(onSelect);
    const { data: pokemons, isLoading: isLoadingPokemons } = useGetAllPokemons();
-   const table = usePagination(pokemons, columns, 10, filterType);
+   const filteredPokemons = filterPokemonsByType(pokemons, filterType);
+   const table = usePagination(filteredPokemons, columns, 10);
 
    const handleFilterChange = (selectedType: string | null) => {
       setFilterType(selectedType);
@@ -55,7 +57,7 @@ function RouteComponent() {
 
          {isLoadingPokemons && currentView === "grid" && <PokemonGridSkeleton />}
          {isLoadingPokemons && currentView === "table" && <PokemonTableSkeleton />}
-         {pokemons && pokemons.length > 0 && (
+         {filteredPokemons && filteredPokemons.length > 0 && (
             <>
                <PokemonPagination table={table} />
                {currentView === "grid" ? (
