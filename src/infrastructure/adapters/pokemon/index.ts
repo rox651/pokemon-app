@@ -1,5 +1,10 @@
 import type { PokemonRepository } from "@/domain/repositories/pokemon";
-import type { Pokemon, PokemonMetadata } from "@/domain/entities/pokemon";
+import type {
+  Pokemon,
+  PokemonMetadata,
+  PokemonAdapted,
+} from "@/domain/entities/pokemon";
+import { adaptPokemonInfo } from "@/helpers/pokemon/adaptPokemonInfo";
 import { axiosClient } from "../../http/axiosClient";
 
 export class PokemonApiAdapter implements PokemonRepository {
@@ -10,10 +15,10 @@ export class PokemonApiAdapter implements PokemonRepository {
     return results;
   }
 
-  async fetchPokemonByName(name: string): Promise<Pokemon> {
+  async fetchPokemonByName(name: string): Promise<PokemonAdapted> {
     const response = await axiosClient.get(`/pokemon/${name}`);
     const pokemon: Pokemon = response.data;
 
-    return pokemon;
+    return adaptPokemonInfo(pokemon);
   }
 }

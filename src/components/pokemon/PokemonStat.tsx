@@ -1,0 +1,59 @@
+import React from "react";
+import {
+   GiHeartPlus,
+   GiBroadsword,
+   GiShield,
+   GiMagicSwirl,
+   GiMagicShield,
+   GiRunningShoe,
+} from "react-icons/gi";
+
+interface PokemonStatProps {
+   name: string;
+   value: number;
+   max?: number;
+}
+
+const DEFAULT_MAX = 255;
+
+const statIcons: Record<string, React.ReactNode> = {
+   HP: <GiHeartPlus className="text-red-400" />,
+   ATK: <GiBroadsword className="text-orange-400" />,
+   DEF: <GiShield className="text-yellow-500" />,
+   SpA: <GiMagicSwirl className="text-blue-400" />,
+   SpD: <GiMagicShield className="text-green-400" />,
+   SPD: <GiRunningShoe className="text-pink-400" />,
+};
+
+const barColors = {
+   high: "bg-green-400",
+   mid: "bg-yellow-300",
+   low: "bg-red-400",
+};
+
+const PokemonStat: React.FC<PokemonStatProps> = ({ name, value, max = DEFAULT_MAX }) => {
+   const percent = Math.min(100, Math.round((value / max) * 100));
+   let barColor = barColors.low;
+   if (percent > 70) barColor = barColors.high;
+   else if (percent > 40) barColor = barColors.mid;
+
+   return (
+      <div className="flex flex-col gap-1 w-full">
+         <div className="flex items-center justify-between text-xs font-medium mb-1">
+            <div className="flex items-center gap-1">
+               {statIcons[name]}
+               <span className="font-semibold text-gray-700">{name}</span>
+            </div>
+            <span className="font-bold text-gray-900">{value}</span>
+         </div>
+         <div className="w-full h-3 bg-gray-200 rounded-full shadow-inner overflow-hidden">
+            <div
+               className={`h-3 rounded-full transition-all duration-300 ${barColor}`}
+               style={{ width: `${percent}%` }}
+            />
+         </div>
+      </div>
+   );
+};
+
+export default PokemonStat;

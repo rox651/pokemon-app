@@ -1,23 +1,28 @@
-import PokemonCardView from "./PokemonCardView";
-import type { Pokemon } from "@/domain/entities/pokemon";
+import PokemonCardView from "@/components/pokemon/PokemonCardView";
+import { type Row } from "@tanstack/react-table";
+import type { PokemonAdapted } from "@/domain/entities/pokemon";
 
 interface PokemonGridViewProps {
-  pokemons: Pokemon[];
-  onSelect: (pokemon: Pokemon) => void;
+   pokemons: Row<PokemonAdapted>[];
+   onSelect: (pokemon: PokemonAdapted) => void;
 }
 
 const PokemonGridView = ({ pokemons, onSelect }: PokemonGridViewProps) => {
-  return (
-    <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-y-20 mt-10 gap-x-4 p-4">
-      {pokemons.map((pokemon) => (
-        <PokemonCardView
-          onSelect={onSelect}
-          key={pokemon.id}
-          pokemon={pokemon}
-        />
-      ))}
-    </section>
-  );
+   if (pokemons.length === 0) {
+      return <div className="text-center text-3xl font-bold my-10">No pokemons found</div>;
+   }
+
+   return (
+      <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-y-20 mt-10 gap-x-4 p-4">
+         {pokemons.map(pokemon => (
+            <PokemonCardView
+               onSelect={onSelect}
+               key={pokemon.original.id}
+               pokemon={pokemon.original}
+            />
+         ))}
+      </section>
+   );
 };
 
 export default PokemonGridView;

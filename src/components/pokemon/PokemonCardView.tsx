@@ -1,15 +1,15 @@
-import type { Pokemon } from "@/domain/entities/pokemon";
+import type { PokemonAdapted } from "@/domain/entities/pokemon";
 
 interface PokemonCardViewProps {
-  pokemon: Pokemon;
-  onSelect: (pokemon: Pokemon) => void;
+  pokemon: PokemonAdapted;
+  onSelect: (pokemon: PokemonAdapted) => void;
 }
 
 const PokemonCardView = ({ pokemon, onSelect }: PokemonCardViewProps) => {
   return (
     <button
       onClick={() => onSelect(pokemon)}
-      className="flex flex-col items-center pt-20 p-4 border group border-gray-500/10  rounded-xl shadow relative"
+      className="flex cursor-pointer flex-col items-center pt-20 p-4 border group border-gray-500/10  rounded-xl shadow relative"
     >
       <h3 className="text-gray-400 text-2xl  font-bold mb-2 right-5 top-5 absolute">
         #{pokemon.id}

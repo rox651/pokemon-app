@@ -17,6 +17,10 @@ export interface Pokemon {
   weight: number;
 }
 
+export interface PokemonAdapted extends Pokemon {
+  total_stat: number;
+}
+
 export interface Ability {
   ability: Species | null;
   is_hidden: boolean;
