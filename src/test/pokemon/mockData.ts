@@ -31,11 +31,6 @@ export const mockPokemon: Pokemon = {
     front_default:
       "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png",
   },
-  stats: [
-    {
-      base_stat: 35,
-      effort: 0,
-      stat: { name: "speed", url: "https://pokeapi.co/api/v2/stat/6/" },
-    },
-  ],
+  moves: [],
+  stats: [],
 };

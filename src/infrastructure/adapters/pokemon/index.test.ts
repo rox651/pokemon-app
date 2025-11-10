@@ -56,4 +56,20 @@ describe("PokemonApiAdapter", () => {
     expect(result.abilities.length).toBe(1);
     expect(result.types[0].type.name).toBe("electric");
   });
+
+  test("Should return full Pokemon details by name", async () => {
+    const mockPokemonData = mockPokemon;
+
+    mockedAxiosClientGetPokemonByName.mockResolvedValueOnce({
+      data: mockPokemonData,
+    });
+
+    const repo = new PokemonApiAdapter();
+    const result = await repo.fetchPokemonByName("pikachu");
+
+    expect(result.name).toBe("pikachu");
+    expect(result.id).toBe(25);
+    expect(result.abilities.length).toBe(1);
+    expect(result.types[0].type.name).toBe("electric");
+  });
 });

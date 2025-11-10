@@ -3,6 +3,7 @@ import type {
   Pokemon,
   PokemonMetadata,
   PokemonAdapted,
+  Move,
 } from "@/domain/entities/pokemon";
 import { adaptPokemonInfo } from "@/helpers/pokemon/adaptPokemonInfo";
 import { axiosClient } from "../../http/axiosClient";
@@ -20,5 +21,11 @@ export class PokemonApiAdapter implements PokemonRepository {
     const pokemon: Pokemon = response.data;
 
     return adaptPokemonInfo(pokemon);
+  }
+
+  async fetchPokemonMoveByName(name: string): Promise<Move> {
+    const response = await axiosClient.get(`/move/${name}`);
+    const moves: Move = response.data;
+    return moves;
   }
 }

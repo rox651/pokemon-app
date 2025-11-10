@@ -7,10 +7,13 @@ export const adaptPokemonInfo = (pokemon: Pokemon): PokemonAdapted => {
 
    const totalStat = calculateTotalStat(pokemon);
 
+   const pokemonMoves = pokemon.moves.slice(0, 4);
+
    return {
       ...pokemon,
       height: pokemonHeightAsMeters,
       weight: pokemonWeightAsKg,
       total_stat: totalStat,
+      moves: pokemonMoves,
    };
 };

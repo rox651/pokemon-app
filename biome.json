@@ -1,37 +1,31 @@
 {
-  "$schema": "https://biomejs.dev/schemas/1.9.4/schema.json",
+  "$schema": "https://biomejs.dev/schemas/2.0.6/schema.json",
   "vcs": {
     "enabled": false,
     "clientKind": "git",
     "useIgnoreFile": false
   },
-  "files": {
-    "ignoreUnknown": false,
-    "ignore": ["dist", "**/routeTree.gen.ts"]
-  },
   "formatter": {
     "enabled": true,
     "indentStyle": "space",
     "indentWidth": 2,
-    "lineWidth": 80
+    "lineWidth": 80,
+    "formatWithErrors": true
   },
-  "organizeImports": {
-    "enabled": true
+  "files": {
+    "includes": ["**/*"],
+    "experimentalScannerIgnores": ["**/routeTree.gen.ts"]
   },
   "linter": {
     "enabled": true,
     "rules": {
       "recommended": false,
-      "a11y": {
-        "noBlankTarget": "error"
-      },
+      "a11y": {},
       "complexity": {
         "noExtraBooleanCast": "error",
-        "noMultipleSpacesInRegularExpressionLiterals": "error",
         "noUselessCatch": "error",
         "noUselessThisAlias": "error",
-        "noUselessTypeConstraint": "error",
-        "noWith": "error"
+        "noUselessTypeConstraint": "error"
       },
       "correctness": {
         "noChildrenProp": "error",
@@ -55,7 +49,6 @@
         "noUnusedLabels": "error",
         "noUnusedPrivateClassMembers": "error",
         "noUnusedVariables": "error",
-        "useArrayLiterals": "off",
         "useExhaustiveDependencies": "warn",
         "useHookAtTopLevel": "error",
         "useIsNan": "error",
@@ -100,11 +93,9 @@
         "noUnsafeDeclarationMerging": "error",
         "noUnsafeNegation": "error",
         "useGetterReturn": "error",
-        "useNamespaceKeyword": "error",
-        "useValidTypeof": "error"
+        "useNamespaceKeyword": "error"
       }
-    },
-    "ignore": ["dist/"]
+    }
   },
   "javascript": {
     "formatter": {
@@ -241,7 +232,15 @@
   },
   "overrides": [
     {
-      "include": ["**/*.ts", "**/*.tsx", "**/*.mts", "**/*.cts"],
+      "includes": ["src/routeTree.gen.ts"],
+      "linter": { "enabled": false }
+    },
+    {
+      "includes": ["src/index.css"],
+      "formatter": { "enabled": false },
+      "linter": { "enabled": false }
+    },
+    {
       "linter": {
         "rules": {
           "correctness": {
@@ -249,15 +248,12 @@
             "noGlobalObjectCalls": "off",
             "noInvalidBuiltinInstantiation": "off",
             "noInvalidConstructorSuper": "off",
-            "noNewSymbol": "off",
             "noSetterReturn": "off",
             "noUndeclaredVariables": "off",
             "noUnreachable": "off",
             "noUnreachableSuper": "off"
           },
           "style": {
-            "noArguments": "error",
-            "noVar": "error",
             "useConst": "error"
           },
           "suspicious": {
