@@ -1,19 +1,11 @@
 import { create } from "zustand";
-import { persist } from "zustand/middleware";
 import type { PokemonSlice } from "./pokemon";
 import { createPokemonSlice } from "./pokemon";
 
 type RootState = PokemonSlice;
 
-const useStore = create<RootState>()(
-   persist(
-      (...a) => ({
-         ...createPokemonSlice(...a),
-      }),
-      {
-         name: "pokemon-storage",
-      }
-   )
-);
+const useStore = create<RootState>()((...a) => ({
+   ...createPokemonSlice(...a),
+}));
 
 export default useStore;

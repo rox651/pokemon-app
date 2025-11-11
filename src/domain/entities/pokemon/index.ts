@@ -1,4 +1,4 @@
-import { PokemonType } from "./pokemonTypes";
+import type { PokemonType } from "./pokemonTypes";
 
 export interface PokemonStat {
    hp: number;
@@ -72,4 +72,19 @@ export interface Move {
    damage_class: Metadata<DamageCategory>;
    accuracy?: number | null;
    pp?: number | null;
+}
+
+export interface DamageRelations {
+   double_damage_from: Metadata<PokemonType>[];
+   double_damage_to: Metadata<PokemonType>[];
+   half_damage_from: Metadata<PokemonType>[];
+   half_damage_to: Metadata<PokemonType>[];
+   no_damage_from: Metadata<PokemonType>[];
+   no_damage_to: Metadata<PokemonType>[];
+}
+
+export interface PokemonTypeInfo {
+   id: number;
+   name: PokemonType;
+   damage_relations: DamageRelations;
 }

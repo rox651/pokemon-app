@@ -1,9 +1,11 @@
 import { useGetPokemonsMoves } from "@/hooks/pokemon/useGetPokemonMoves";
 import { getPokemonTypeColor } from "@/helpers/pokemon/pokemonTypes";
-import type { PokemonAdapted } from "@/domain/entities/pokemon";
+import type { Move, PokemonAdapted } from "@/domain/entities/pokemon";
 import { GiBroadsword, GiMagicSwirl } from "react-icons/gi";
 import { MdAutoFixHigh } from "react-icons/md";
 import type { ReactNode } from "react";
+import useStore from "@/store";
+import { useBattleStatus } from "@/hooks/pokemon/useBattleStatus";
 
 interface PokemonMovesProps {
    pokemon: PokemonAdapted;
@@ -16,11 +18,26 @@ const categoryIcon: Record<string, ReactNode> = {
 };
 
 export const PokemonMoves = ({ pokemon }: PokemonMovesProps) => {
+   const attack = useStore(state => state.attack);
    const pokemonMoves = pokemon.moves.map(m => m.move.name);
    const { data: moves, isLoading: isLoadingMoves } = useGetPokemonsMoves(
       pokemon.name,
       pokemonMoves
    );
+
+   const { isAttacking, isWin, isLose } = useBattleStatus();
+
+   const isDisabled = isAttacking || isWin || isLose;
+
+   const onClickMove = (move: Move) => {
+      if (isDisabled) return;
+
+      const pokemonMove = pokemon.moves.find(m => m.move.name === move.name);
+
+      if (!pokemonMove) return;
+
+      attack(pokemonMove);
+   };
 
    return (
       <div className="flex flex-col gap-3">
@@ -37,22 +54,24 @@ export const PokemonMoves = ({ pokemon }: PokemonMovesProps) => {
          ) : (
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                {moves?.map(move => {
-                  const power = move.power ?? "—";
+                  const power = move.power ?? "-";
                   const accuracy = move.accuracy ?? "—";
                   const pp = move.pp ?? "—";
                   const typeColor = getPokemonTypeColor(move.type);
 
                   return (
-                     <div
+                     <button
                         key={move.name}
-                        className="rounded-lg border border-gray-200 bg-white p-3 shadow-sm hover:shadow-md transition-shadow duration-200"
+                        className="cursor-pointer rounded-lg border border-gray-200 bg-white p-3 shadow-sm hover:shadow-md transition-shadow duration-200 disabled:cursor-not-allowed disabled:opacity-50 "
+                        onClick={() => onClickMove(move)}
+                        disabled={isDisabled}
                      >
                         <div className="flex items-center justify-between mb-2">
                            <div className="flex items-center gap-2">
                               <span className="text-xl">
                                  {categoryIcon[move.damage_class.name]}
                               </span>
-                              <span className="font-semibold text-gray-900 capitalize">
+                              <span className="font-semibold text-gray-900 capitalize text-ellipsis">
                                  {move.name}
                               </span>
                            </div>
@@ -63,19 +82,23 @@ export const PokemonMoves = ({ pokemon }: PokemonMovesProps) => {
                         </div>
                         <div className="grid grid-cols-3 gap-2 text-[11px]">
                            <div className="rounded bg-gray-100 px-2 py-1 text-gray-700 text-center">
-                              <span className="block font-semibold">Power</span>
+                              <span className="block font-semibold truncate text-ellipsis">
+                                 Power
+                              </span>
                               <span>{power}</span>
                            </div>
                            <div className="rounded bg-gray-100 px-2 py-1 text-gray-700 text-center">
-                              <span className="block font-semibold">Accuracy</span>
+                              <span className="block font-semibold truncate text-ellipsis">
+                                 Accuracy
+                              </span>
                               <span>{accuracy}</span>
                            </div>
                            <div className="rounded bg-gray-100 px-2 py-1 text-gray-700 text-center">
-                              <span className="block font-semibold">PP</span>
+                              <span className="block font-semibold truncate text-ellipsis">PP</span>
                               <span>{pp}</span>
                            </div>
                         </div>
-                     </div>
+                     </button>
                   );
                })}
             </div>

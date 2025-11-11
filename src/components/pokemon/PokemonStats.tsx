@@ -1,4 +1,7 @@
-import type { PokemonAdapted, PokemonStatType } from "@/domain/entities/pokemon";
+import type {
+  PokemonAdapted,
+  PokemonStatType,
+} from "@/domain/entities/pokemon";
 import PokemonStat from "@/components/pokemon/PokemonStat";
 
 interface PokemonStatsProps {
@@ -36,5 +39,3 @@ const PokemonStats = ({ pokemon }: PokemonStatsProps) => {
 };
 
 export default PokemonStats;
-
-

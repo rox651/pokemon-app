@@ -92,7 +92,7 @@ function RouteComponent() {
         />
       )}
 
-      {status === "playing" && <PokemonBattleModal />}
+      {status !== "idle" && <PokemonBattleModal />}
     </div>
   );
 }

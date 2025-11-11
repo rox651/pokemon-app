@@ -1,18 +1,26 @@
 import { useQuery } from "@tanstack/react-query";
-
 import { PokemonApiAdapter } from "@/infrastructure/adapters/pokemon";
 
 const repository = new PokemonApiAdapter();
 
 interface UseGetPokemonByNameProps {
-  name: string;
+  name?: string;
+  enabled?: boolean;
 }
 
-export const useGetPokemonByName = ({ name }: UseGetPokemonByNameProps) => {
+export const useGetPokemonByName = ({
+  name,
+  enabled,
+}: UseGetPokemonByNameProps) => {
   return useQuery({
     queryKey: ["pokemon", name],
     queryFn: async () => {
-      return await repository.fetchPokemonByName(name);
+      if (!name) {
+        return;
+      }
+      const pokemon = await repository.fetchPokemonByName(name);
+      return pokemon;
     },
+    enabled,
   });
 };

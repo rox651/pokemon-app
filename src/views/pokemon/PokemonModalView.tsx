@@ -77,7 +77,7 @@ const PokemonModalView = ({ pokemon, onClose }: PokemonModalViewProps) => {
 
                <button
                   onClick={onClickPlay}
-                  className="w-full bg-gray-200 px-4 py-2 rounded-md text-gray-700 hover:bg-gray-300 transition-colors duration-300"
+                  className="w-full cursor-pointer bg-blue-500 px-4 py-2 rounded-md text-white hover:bg-blue-600 transition-colors duration-300"
                >
                   Play
                </button>

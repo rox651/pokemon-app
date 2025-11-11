@@ -34,7 +34,7 @@ const PokemonCardView = ({ pokemon, onSelect }: PokemonCardViewProps) => {
                src={pokemon.sprites.front_default}
                alt={pokemon.name}
             />
-            <h3 className="relative z-10 text-lg capitalize mb-3 font-black group-hover:rotate-5 transition-all group-hover:-translate-y-1 border border-gray-300 group-hover:bg-blue-300 px-3 rounded-xl">
+            <h3 className="relative z-10 text-lg capitalize mb-3 font-black group-hover:rotate-5 transition-all group-hover:-translate-y-1 border border-gray-300 bg-white group-hover:bg-blue-300 px-3 rounded-xl">
                {pokemon.name}
             </h3>
          </div>
@@ -43,7 +43,7 @@ const PokemonCardView = ({ pokemon, onSelect }: PokemonCardViewProps) => {
                e.stopPropagation();
                onClickPlay();
             }}
-            className="mt-10 cursor-pointer text-sm text-gray-800 font-semibold bg-gray-300 px-5 py-2 rounded-full"
+            className="w-full cursor-pointer bg-blue-500 px-4 py-2 rounded-md text-white hover:bg-blue-600 transition-colors duration-300"
          >
             Play with this Pokemon
          </div>
