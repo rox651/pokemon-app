@@ -1,5 +1,5 @@
 import { DEFAULT_BATTLE_DELAY, MAX_MOVES } from "@/domain/entities/constant";
-import type { Move, PokemonAdapted, PokemonMove } from "@/domain/entities/pokemon";
+import type { PokemonAdapted, PokemonMove } from "@/domain/entities/pokemon";
 import { generateRandomNumber } from "@/helpers/common/generateRandomNumber";
 import calculateDamage from "@/helpers/pokemon/calculateDamage";
 import { getPokemonStatsWithDamageApplied } from "@/helpers/pokemon/getPokemonStatsWithDamageApplied";
@@ -25,6 +25,8 @@ export const createPokemonSlice: StateCreator<PokemonSlice, [], [], PokemonSlice
    status: "idle",
    pokemonFromPlayer: null,
    pokemonFromComputer: null,
+   playerMaxHp: null,
+   computerMaxHp: null,
    setStatus: status => set({ status }),
    setPokemonFromPlayer: pokemon => set({ pokemonFromPlayer: pokemon }),
    setPokemonFromComputer: pokemon => set({ pokemonFromComputer: pokemon }),

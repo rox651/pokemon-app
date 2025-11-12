@@ -7,6 +7,7 @@ import PokemonFighterViewSkeleton from "./PokemonFighterViewSkeleton";
 import { generateRandomNumber } from "@/helpers/common/generateRandomNumber";
 import { DEFAULT_BATTLE_DELAY } from "@/domain/entities/constant";
 import { useBattleStatus } from "@/hooks/pokemon/useBattleStatus";
+import BattleMessage from "./BattleMessage";
 
 const PokemonBattleModal = () => {
    const modalRef = useRef<HTMLDivElement | null>(null);
@@ -50,11 +51,19 @@ const PokemonBattleModal = () => {
       return null;
    }
 
+   const getBattleMessageType = (): "attacking" | "win" | "lose" | null => {
+      if (isAttacking) return "attacking";
+      if (isWin) return "win";
+      if (isLose) return "lose";
+      return null;
+   };
+
    return (
       <div
          className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center 
     "
       >
+         <BattleMessage type={getBattleMessageType()} />
          <div
             ref={modalRef}
             className="relative bg-white rounded-xl shadow-lg p-6 w-full max-w-5xl grid grid-cols-2 gap-8 items-center"

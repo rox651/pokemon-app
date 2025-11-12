@@ -80,7 +80,7 @@ export const PokemonMoves = ({ pokemon }: PokemonMovesProps) => {
                               style={{ backgroundColor: typeColor }}
                            ></span>
                         </div>
-                        <div className="grid grid-cols-3 gap-2 text-[11px]">
+                        <div className="grid grid-cols-2 gap-2 text-[11px]">
                            <div className="rounded bg-gray-100 px-2 py-1 text-gray-700 text-center">
                               <span className="block font-semibold truncate text-ellipsis">
                                  Power
@@ -92,10 +92,6 @@ export const PokemonMoves = ({ pokemon }: PokemonMovesProps) => {
                                  Accuracy
                               </span>
                               <span>{accuracy}</span>
-                           </div>
-                           <div className="rounded bg-gray-100 px-2 py-1 text-gray-700 text-center">
-                              <span className="block font-semibold truncate text-ellipsis">PP</span>
-                              <span>{pp}</span>
                            </div>
                         </div>
                      </button>
