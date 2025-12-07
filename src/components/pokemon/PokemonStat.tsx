@@ -49,20 +49,20 @@ const PokemonStat: React.FC<PokemonStatProps> = ({
   return (
     <div
       className={cn(
-        "flex flex-col gap-1 w-full",
-        name === "HP" ? "col-span-full" : "",
+        "flex flex-col gap-1.5 w-full",
+        name === "HP" ? "col-span-2 sm:col-span-3" : "",
       )}
     >
-      <div className="flex items-center justify-between text-xs font-medium mb-1">
-        <div className="flex items-center gap-1">
-          <span className="text-3xl">{statIcons[name]}</span>
-          <span className="font-semibold text-gray-700">{name}</span>
+      <div className="flex items-center justify-between mb-1">
+        <div className="flex items-center gap-1.5 min-w-0">
+          <span className="text-lg sm:text-xl lg:text-2xl flex-shrink-0">{statIcons[name]}</span>
+          <span className="font-semibold text-gray-700 text-xs sm:text-sm">{name}</span>
         </div>
-        <span className="font-bold text-gray-900">{value}</span>
+        <span className="font-bold text-gray-900 text-xs sm:text-sm ml-2 flex-shrink-0">{value}</span>
       </div>
-      <div className="w-full h-3 bg-gray-200 rounded-full shadow-inner overflow-hidden">
+      <div className="w-full h-2.5 sm:h-3 bg-gray-200 rounded-full shadow-inner overflow-hidden">
         <div
-          className={`h-3 rounded-full transition-all duration-300 ${barColor}`}
+          className={`h-2.5 sm:h-3 rounded-full transition-all duration-300 ${barColor}`}
           style={{ width: `${percent}%` }}
         />
       </div>

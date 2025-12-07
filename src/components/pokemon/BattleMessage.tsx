@@ -87,9 +87,9 @@ const BattleMessage = ({ type }: BattleMessageProps) => {
    };
 
    return (
-      <div className="fixed inset-0 z-[60] flex items-center justify-center pointer-events-none">
+      <div className="fixed inset-0 z-[60] flex items-center justify-center pointer-events-none p-4">
          <div
-            className={`${getColorClasses()} px-12 py-6 rounded-2xl shadow-2xl text-5xl font-bold transition-all duration-300 ease-out ${
+            className={`${getColorClasses()} px-6 sm:px-10 lg:px-12 py-4 sm:py-5 lg:py-6 rounded-xl sm:rounded-2xl shadow-2xl text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold transition-all duration-300 ease-out ${
                isVisible
                   ? "opacity-100 scale-100 translate-y-0"
                   : "opacity-0 scale-90 -translate-y-4"
