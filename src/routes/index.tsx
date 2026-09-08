@@ -72,9 +72,10 @@ function RouteComponent() {
 
 
   return (
-    <div>
-      <h1 className="text-3xl lg:text-5xl font-black text-center mt-10">
-        Pokemon List
+    <div className="">
+      <h1 className="text-3xl lg:text-5xl text-white text-center mt-10">
+        Pokédex
+        simulator
       </h1>
       <PokemonControls
         currentView={currentView}

@@ -26,10 +26,10 @@ export default function PokemonSelectFilter({
 
   return (
     <Select onValueChange={handleTypeChange} value={selectedType || "all"}>
-      <SelectTrigger className="w-[180px]">
+      <SelectTrigger className="w-[180px] bg-[#0A0A0A] text-white">
         <SelectValue placeholder="Filter by type" />
       </SelectTrigger>
-      <SelectContent className="bg-white">
+      <SelectContent className="bg-[#0A0A0A] text-white">
         <SelectItem value="all">All Types</SelectItem>
         {options.map((option) => (
           <SelectItem key={option.value} value={option.value}>

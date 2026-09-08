@@ -19,7 +19,7 @@ export const pokemonColumns = (onSelect: (pokemon: PokemonAdapted) => void) =>
           />
           <button
             onClick={() => onSelect(row.original)}
-            className="text-blue-600 cursor-pointer hover:underline"
+            className="text-[#F4FF69] cursor-pointer hover:underline"
           >
             Ver
           </button>

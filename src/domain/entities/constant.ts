@@ -13,5 +13,5 @@ export const EFFECTIVENESS_NORMAL_VALUE = 1;
 export const BATTLE_ATTACKING_MESSAGE_DURATION = 1500;
 export const BATTLE_WIN_LOSE_MESSAGE_DURATION = 2000;
 
-export const PAGE_SIZE = 10
+export const PAGE_SIZE = 8
 export const TOTAL_POKEMONS = 1025

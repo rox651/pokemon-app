@@ -16,19 +16,18 @@ const PokemonTableView = ({ table }: PokemonTableViewProps) => {
   }
 
   return (
-    <div className="w-full overflow-x-auto mt-10">
+    <div className="w-full overflow-x-auto mt-10 text-white">
       <table className="min-w-[600px] w-full table-auto border-collapse border border-gray-300 text-sm sm:text-base">
-        <thead className="bg-gray-100">
+        <thead className="">
           {table.getHeaderGroups().map((headerGroup) => (
             <tr key={headerGroup.id} className="border-b border-gray-300">
               {headerGroup.headers.map((header) => (
                 <th
                   key={header.id}
-                  className={`py-2 px-4 text-left ${
-                    header.column.getCanSort()
-                      ? "cursor-pointer hover:text-blue-500"
-                      : ""
-                  }`}
+                  className={`py-2 px-4 text-left ${header.column.getCanSort()
+                    ? "cursor-pointer hover:text-[#F4FF69]"
+                    : ""
+                    }`}
                   {...(header.column.getCanSort()
                     ? { onClick: header.column.getToggleSortingHandler() }
                     : {})}
@@ -51,7 +50,7 @@ const PokemonTableView = ({ table }: PokemonTableViewProps) => {
         </thead>
         <tbody>
           {table.getRowModel().rows.map((row) => (
-            <tr key={row.id} className="hover:bg-gray-50">
+            <tr key={row.id} className="hover:bg-gray-600">
               {row.getVisibleCells().map((cell) => (
                 <td
                   key={cell.id}

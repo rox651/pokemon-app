@@ -30,7 +30,7 @@ const PokemonPagination = ({ table, isLoading }: PokemonPaginationProps) => {
       >
         <MdOutlineKeyboardArrowLeft />
       </button>
-      <span>
+      <span className="text-white">
         Page {table.getState().pagination.pageIndex + 1} of{" "}
         {table.getPageCount()}
       </span>
