@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import type { PokemonAdapted } from "@/domain/entities/pokemon";
 import useStore from "@/store";
 import { cn } from "@/helpers/common/cn";
@@ -9,7 +8,6 @@ interface PokemonCardViewProps {
 }
 
 const PokemonCardView = ({ pokemon, onSelect }: PokemonCardViewProps) => {
-  const [isLoadedImage, setIsLoadedImage] = useState(false)
   const setStatus = useStore((state) => state.setStatus);
   const setPokemonFromPlayer = useStore((state) => state.setPokemonFromPlayer);
 
@@ -33,8 +31,7 @@ const PokemonCardView = ({ pokemon, onSelect }: PokemonCardViewProps) => {
         </h3>
         <img
           className="size-24 object-contain transition-transform group-hover:-rotate-10 group-hover:scale-180   scale-150  "
-          src={isLoadedImage ? pokemon.sprites.front_default : '/loading-sprite.png'}
-          onLoad={() => setIsLoadedImage(true)}
+          src={pokemon.sprites.front_default}
           alt={pokemon.name}
         />
         <h3 className="relative z-10 text-lg capitalize mb-3 font-black group-hover:rotate-5 transition-all group-hover:-translate-y-1 border border-gray-300 bg-white group-hover:bg-blue-300 px-3 rounded-xl">
