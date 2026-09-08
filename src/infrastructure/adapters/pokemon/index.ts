@@ -10,13 +10,17 @@ import { adaptPokemonInfo } from "@/helpers/pokemon/adaptPokemonInfo";
 import { axiosClient } from "../../http/axiosClient";
 
 export class PokemonApiAdapter implements PokemonRepository {
-  async fetchAllPokemons(offset: number, limit: number): Promise<{
+  async fetchAllPokemons(offset: number, limit: number, type: string | null): Promise<{
     results: PokemonMetadata[]
     totalCount: number,
   }> {
-    const response = await axiosClient.get(`/pokemon?offset=${offset}&limit=${limit}`);
-    const results: PokemonMetadata[] = response.data.results;
-    const totalCount: number = response.data.count
+    const url = type ? `/type/fire` : `/pokemon?offset=${offset}&limit=${limit}`
+    const response = await axiosClient.get(url);
+
+    const results: PokemonMetadata[] = type ? response.data.pokemon.slice(offset, limit + offset).map(
+      (data: { pokemon: PokemonMetadata }) => data.pokemon) : response.data.results;
+
+    const totalCount: number = type ? response.data.pokemon.length : response.data.count
 
     return { results, totalCount };
   }

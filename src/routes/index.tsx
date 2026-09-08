@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 
 import { useGetAllPokemons } from "@/hooks/pokemon/useGetAllPokemons";
 import { useLocalStorage } from "@/hooks/common/useLocalStorage";
@@ -14,12 +14,9 @@ import PokemonGridSkeleton from "@/components/pokemon/PokemonGridSkeleton";
 import PokemonTableSkeleton from "@/components/pokemon/PokemonTableSkeleton";
 import PokemonPagination from "@/components/pokemon/PokemonPagination";
 import PokemonControls from "@/components/pokemon/PokemonControls";
-import PokemonControlsSkeleton from "@/components/pokemon/PokemonControlsSkeleton";
-import PokemonPaginationSkeleton from "@/components/pokemon/PokemonPaginationSkeleton";
 import PokemonBattleModal from "@/components/pokemon/PokemonBattleModal";
 
 import { pokemonColumns } from "@/helpers/pokemon/pokemonColumns";
-import { filterPokemonsByType } from "@/helpers/pokemon/filterPokemonsByType";
 import { PAGE_SIZE } from "@/domain/entities/constant";
 
 import type { PokemonAdapted } from "@/domain/entities/pokemon";
@@ -53,9 +50,21 @@ function RouteComponent() {
   };
 
   const columns = pokemonColumns(onSelect);
-  const { data, isLoading: isLoadingPokemons } = useGetAllPokemons(pagination.pageIndex * pagination.pageSize, pagination.pageSize);
-  const filteredPokemons = filterPokemonsByType(data?.pokemons, filterType);
-  const table = usePagination(filteredPokemons, columns, pagination, setPagination, filterType, data?.totalCount);
+  const { data, isLoading: isLoadingPokemons } = useGetAllPokemons(
+    pagination.pageIndex * pagination.pageSize,
+    pagination.pageSize,
+    filterType
+  );
+
+
+  const table = usePagination(
+    data?.pokemons,
+    columns,
+    pagination,
+    setPagination,
+    filterType,
+    data?.totalCount,
+  );
 
   const handleFilterChange = (selectedType: string | null) => {
     setFilterType(selectedType);
@@ -76,7 +85,7 @@ function RouteComponent() {
       <PokemonPagination table={table} isLoading={isLoadingPokemons} />
       {isLoadingPokemons && currentView === "grid" && <PokemonGridSkeleton />}
       {isLoadingPokemons && currentView === "table" && <PokemonTableSkeleton />}
-      {filteredPokemons && filteredPokemons.length > 0 && (
+      {data?.pokemons && data.pokemons.length > 0 && (
         <>
           {currentView === "grid" ? (
             <PokemonGridView

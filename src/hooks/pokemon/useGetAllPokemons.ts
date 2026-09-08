@@ -3,13 +3,14 @@ import { PokemonApiAdapter } from "@/infrastructure/adapters/pokemon";
 
 const repository = new PokemonApiAdapter();
 
-export const useGetAllPokemons = (offset: number, limit: number) => {
+export const useGetAllPokemons = (offset: number, limit: number, filterType: string | null) => {
   const queryClient = useQueryClient();
 
   return useQuery({
-    queryKey: ["pokemons", offset, limit],
+    queryKey: ["pokemons", offset, limit, filterType],
     queryFn: async () => {
-      const { results, totalCount } = await repository.fetchAllPokemons(offset, limit);
+      console.log([offset, limit, filterType])
+      const { results, totalCount } = await repository.fetchAllPokemons(offset, limit, filterType);
 
       const pokemons = await Promise.all(
         results.map(async (pokemon) => {

@@ -16,9 +16,10 @@ export const usePagination = <T>(
   pagination: PaginationState,
   setPagination: OnChangeFn<PaginationState>,
   filterType?: string | null,
-  totalCount?: number
+  totalCount?: number,
 ) => {
   const [sorting, setSorting] = useState<SortingState>([]);
+
 
   const table = useReactTable({
     data: data ?? [],
@@ -34,6 +35,7 @@ export const usePagination = <T>(
     onSortingChange: setSorting,
     autoResetPageIndex: false,
   });
+
 
   const tableState = table.getState();
   const pageSize = tableState.pagination.pageSize;

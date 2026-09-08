@@ -4,7 +4,7 @@ import {
 } from "@/domain/entities/pokemon/pokemonTypes";
 
 export const getPokemonTypeColor = (type: string): string => {
-  return pokemonTypes[type as PokemonType] || "#777777";
+  return pokemonTypes[type as PokemonType]?.color ?? "#777777";
 };
 
 export const getPokemonTypeOptions = () => {

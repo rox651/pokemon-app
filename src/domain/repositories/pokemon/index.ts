@@ -6,7 +6,7 @@ import type {
 } from "@/domain/entities/pokemon/";
 
 export interface PokemonRepository {
-  fetchAllPokemons(offset: number, limit: number): Promise<{
+  fetchAllPokemons(offset: number, limit: number, type: string | null): Promise<{
     results: PokemonMetadata[]
     totalCount: number,
   }>;
