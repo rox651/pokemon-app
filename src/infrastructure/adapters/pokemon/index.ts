@@ -21,6 +21,13 @@ export class PokemonApiAdapter implements PokemonRepository {
     return { results, totalCount };
   }
 
+  async fetchPokemonById(id: number): Promise<PokemonAdapted> {
+    const response = await axiosClient.get(`/pokemon/${id}`);
+    const pokemon: Pokemon = response.data;
+
+    return adaptPokemonInfo(pokemon);
+  }
+
   async fetchPokemonByName(name: string): Promise<PokemonAdapted> {
     const response = await axiosClient.get(`/pokemon/${name}`);
     const pokemon: Pokemon = response.data;

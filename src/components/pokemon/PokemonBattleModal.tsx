@@ -1,17 +1,20 @@
-import { useEffect, useRef } from "react";
-import { useClickOutside } from "@/hooks/common/useClickOutside";
+import { useEffect, useRef, useState } from "react";
+
 import useStore from "@/store";
-import PokemonFighterView from "./PokemonFighterView";
-import { useGetAllPokemons } from "@/hooks/pokemon/useGetAllPokemons";
-import PokemonFighterViewSkeleton from "./PokemonFighterViewSkeleton";
-import { generateRandomNumber } from "@/helpers/common/generateRandomNumber";
-import { DEFAULT_BATTLE_DELAY } from "@/domain/entities/constant";
+import { useGetPokemonById } from "@/hooks/pokemon/useGetPokemonById";
 import { useBattleStatus } from "@/hooks/pokemon/useBattleStatus";
+import { useClickOutside } from "@/hooks/common/useClickOutside";
+
+import PokemonFighterView from "./PokemonFighterView";
+import PokemonFighterViewSkeleton from "./PokemonFighterViewSkeleton";
+
 import BattleMessage from "./BattleMessage";
+import { DEFAULT_BATTLE_DELAY, TOTAL_POKEMONS } from "@/domain/entities/constant";
+import { generateRandomNumber } from "@/helpers/common/generateRandomNumber";
 
 const PokemonBattleModal = () => {
   const modalRef = useRef<HTMLDivElement | null>(null);
-  const { data: pokemons } = useGetAllPokemons();
+  const [randomId, setRandomId] = useState<number>()
 
   const pokemonFromPlayer = useStore((state) => state.pokemonFromPlayer);
   const pokemonFromComputer = useStore((state) => state.pokemonFromComputer);
@@ -20,6 +23,11 @@ const PokemonBattleModal = () => {
     (state) => state.setPokemonFromComputer,
   );
 
+
+  const { data: pokemon } = useGetPokemonById({
+    id: randomId,
+    enabled: !!randomId
+  })
   const { isPlaying, isWin, isLose, isAttacking } = useBattleStatus();
 
   const onClose = () => {
@@ -31,33 +39,43 @@ const PokemonBattleModal = () => {
   useEffect(() => {
     if (pokemonFromPlayer) {
       document.body.style.overflow = 'hidden';
-      
+
       return () => {
         document.body.style.overflow = '';
       };
     }
   }, [pokemonFromPlayer]);
 
+
   useEffect(() => {
-    if (!pokemons || pokemons.length === 0) return;
+    if (!pokemon) return
+    setPokemonFromComputer(pokemon)
+
+
+    return () => {
+      setPokemonFromComputer(null)
+    }
+  }, [pokemon])
+
+  useEffect(() => {
     let timeoutId: NodeJS.Timeout;
 
-    const generateRandomPokemon = async () => {
+    const generateRandomPokemonId = async () => {
       await new Promise((resolve) => {
         timeoutId = setTimeout(resolve, DEFAULT_BATTLE_DELAY);
       });
 
-      const randomPokemon = pokemons[generateRandomNumber(pokemons.length)];
-      setPokemonFromComputer(randomPokemon);
+      const randomPokemonId = generateRandomNumber(TOTAL_POKEMONS);
+      setRandomId(randomPokemonId);
     };
 
-    generateRandomPokemon();
+    generateRandomPokemonId();
 
     return () => {
       clearTimeout(timeoutId);
-      setPokemonFromComputer(null);
+      setRandomId(undefined);
     };
-  }, [setPokemonFromComputer, pokemons]);
+  }, [setRandomId]);
 
   if (!pokemonFromPlayer) {
     return null;

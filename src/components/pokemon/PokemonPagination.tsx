@@ -10,11 +10,12 @@ import { type Table } from "@tanstack/react-table";
 
 interface PokemonPaginationProps {
   table: Table<PokemonAdapted>;
+  isLoading: boolean
 }
 
-const PokemonPagination = ({ table }: PokemonPaginationProps) => {
+const PokemonPagination = ({ table, isLoading }: PokemonPaginationProps) => {
   return (
-    <div className="[&>button]:cursor-pointer flex justify-center items-center gap-2 mt-4 mb-5">
+    <div className="[&>button]:cursor-pointer flex justify-center items-center gap-2 mt-4 mb-5" inert={isLoading}>
       <button
         onClick={() => table.firstPage()}
         disabled={!table.getCanPreviousPage()}

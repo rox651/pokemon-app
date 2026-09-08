@@ -67,20 +67,17 @@ function RouteComponent() {
       <h1 className="text-3xl lg:text-5xl font-black text-center mt-10">
         Pokemon List
       </h1>
-      {isLoadingPokemons && <PokemonControlsSkeleton />}
-      {isLoadingPokemons && <PokemonPaginationSkeleton />}
+      <PokemonControls
+        currentView={currentView}
+        onViewChange={setCurrentView}
+        onFilterChange={handleFilterChange}
+        isLoading={isLoadingPokemons}
+      />
+      <PokemonPagination table={table} isLoading={isLoadingPokemons} />
       {isLoadingPokemons && currentView === "grid" && <PokemonGridSkeleton />}
       {isLoadingPokemons && currentView === "table" && <PokemonTableSkeleton />}
-      {!isLoadingPokemons && (
-        <PokemonControls
-          currentView={currentView}
-          onViewChange={setCurrentView}
-          onFilterChange={handleFilterChange}
-        />
-      )}
       {filteredPokemons && filteredPokemons.length > 0 && (
         <>
-          <PokemonPagination table={table} />
           {currentView === "grid" ? (
             <PokemonGridView
               pokemons={table.getRowModel().rows}
@@ -89,9 +86,9 @@ function RouteComponent() {
           ) : (
             <PokemonTableView table={table} />
           )}
-          <PokemonPagination table={table} />
         </>
       )}
+      <PokemonPagination table={table} isLoading={isLoadingPokemons} />
 
       {selectedPokemon && (
         <PokemonModalView

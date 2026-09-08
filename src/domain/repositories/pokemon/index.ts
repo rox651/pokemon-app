@@ -11,6 +11,7 @@ export interface PokemonRepository {
     totalCount: number,
   }>;
   fetchPokemonByName(name: string): Promise<PokemonAdapted>;
+  fetchPokemonById(id: number): Promise<PokemonAdapted>;
   fetchPokemonMoveByName(moveName: string): Promise<Move>;
   fetchPokemonTypes(typeName: string): Promise<PokemonTypeInfo>;
 }
