@@ -19,6 +19,7 @@ describe("PokemonApiAdapter", () => {
   test("Should return Pokémon array", async () => {
     mockedAxiosClientGet.mockResolvedValueOnce({
       data: {
+        count: 151,
         results: [
           {
             name: "pikachu",
@@ -29,9 +30,10 @@ describe("PokemonApiAdapter", () => {
     });
 
     const repo = new PokemonApiAdapter();
-    const result = await repo.fetchAllPokemons();
+    const result = await repo.fetchAllPokemons(0, 10);
 
-    expect(result[0].name).toBe("pikachu");
+    expect(result.results[0].name).toBe("pikachu");
+    expect(result.totalCount).toBe(151);
   });
 
   test("Should return full Pokemon details by name", async () => {

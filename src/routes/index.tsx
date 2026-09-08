@@ -20,6 +20,7 @@ import PokemonBattleModal from "@/components/pokemon/PokemonBattleModal";
 
 import { pokemonColumns } from "@/helpers/pokemon/pokemonColumns";
 import { filterPokemonsByType } from "@/helpers/pokemon/filterPokemonsByType";
+import { PAGE_SIZE } from "@/domain/entities/constant";
 
 import type { PokemonAdapted } from "@/domain/entities/pokemon";
 
@@ -34,6 +35,12 @@ function RouteComponent() {
     (state) => state.setSelectedPokemonForModal,
   );
 
+
+  const [pagination, setPagination] = useState({
+    pageIndex: 0,
+    pageSize: PAGE_SIZE,
+  });
+
   const [currentView, setCurrentView] = useLocalStorage<"grid" | "table">({
     key: "currentView",
     defaultValue: "grid",
@@ -46,13 +53,14 @@ function RouteComponent() {
   };
 
   const columns = pokemonColumns(onSelect);
-  const { data: pokemons, isLoading: isLoadingPokemons } = useGetAllPokemons();
-  const filteredPokemons = filterPokemonsByType(pokemons, filterType);
-  const table = usePagination(filteredPokemons, columns, 10, filterType);
+  const { data, isLoading: isLoadingPokemons } = useGetAllPokemons(pagination.pageIndex * pagination.pageSize, pagination.pageSize);
+  const filteredPokemons = filterPokemonsByType(data?.pokemons, filterType);
+  const table = usePagination(filteredPokemons, columns, pagination, setPagination, filterType, data?.totalCount);
 
   const handleFilterChange = (selectedType: string | null) => {
     setFilterType(selectedType);
   };
+
 
   return (
     <div>

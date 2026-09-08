@@ -10,11 +10,15 @@ import { adaptPokemonInfo } from "@/helpers/pokemon/adaptPokemonInfo";
 import { axiosClient } from "../../http/axiosClient";
 
 export class PokemonApiAdapter implements PokemonRepository {
-  async fetchAllPokemons(): Promise<PokemonMetadata[]> {
-    const response = await axiosClient.get("/pokemon?limit=151");
+  async fetchAllPokemons(offset: number, limit: number): Promise<{
+    results: PokemonMetadata[]
+    totalCount: number,
+  }> {
+    const response = await axiosClient.get(`/pokemon?offset=${offset}&limit=${limit}`);
     const results: PokemonMetadata[] = response.data.results;
+    const totalCount: number = response.data.count
 
-    return results;
+    return { results, totalCount };
   }
 
   async fetchPokemonByName(name: string): Promise<PokemonAdapted> {

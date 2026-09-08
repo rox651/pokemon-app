@@ -1,34 +1,35 @@
-import { useState, useMemo, useEffect } from "react";
+import { useState, useEffect } from "react";
 import {
   useReactTable,
   getCoreRowModel,
-  getPaginationRowModel,
   getSortedRowModel,
   getFilteredRowModel,
   type SortingState,
   type ColumnDef,
+  type PaginationState,
+  OnChangeFn,
 } from "@tanstack/react-table";
 
 export const usePagination = <T>(
   data: T[] | undefined,
   columns: ColumnDef<T, unknown>[],
-  initialPageSize = 10,
+  pagination: PaginationState,
+  setPagination: OnChangeFn<PaginationState>,
   filterType?: string | null,
+  totalCount?: number
 ) => {
-  const [pagination, setPagination] = useState({
-    pageIndex: 0,
-    pageSize: initialPageSize,
-  });
   const [sorting, setSorting] = useState<SortingState>([]);
 
   const table = useReactTable({
     data: data ?? [],
     columns,
     getCoreRowModel: getCoreRowModel(),
-    getPaginationRowModel: getPaginationRowModel(),
     getSortedRowModel: getSortedRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
     state: { pagination, sorting },
+
+    manualPagination: true,
+    rowCount: totalCount ?? 0,
     onPaginationChange: setPagination,
     onSortingChange: setSorting,
     autoResetPageIndex: false,
@@ -46,5 +47,5 @@ export const usePagination = <T>(
     }
   }, [filterType, pageSize]);
 
-  return table;
+  return table
 };
