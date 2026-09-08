@@ -14,7 +14,7 @@ export class PokemonApiAdapter implements PokemonRepository {
     results: PokemonMetadata[]
     totalCount: number,
   }> {
-    const url = type ? `/type/fire` : `/pokemon?offset=${offset}&limit=${limit}`
+    const url = type ? `/type/${type}` : `/pokemon?offset=${offset}&limit=${limit}`
     const response = await axiosClient.get(url);
 
     const results: PokemonMetadata[] = type ? response.data.pokemon.slice(offset, limit + offset).map(

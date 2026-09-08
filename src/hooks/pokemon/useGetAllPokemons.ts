@@ -1,4 +1,4 @@
-import { useQueryClient, useQuery } from "@tanstack/react-query";
+import { useQueryClient, useQuery, keepPreviousData } from "@tanstack/react-query";
 import { PokemonApiAdapter } from "@/infrastructure/adapters/pokemon";
 
 const repository = new PokemonApiAdapter();
@@ -8,6 +8,7 @@ export const useGetAllPokemons = (offset: number, limit: number, filterType: str
 
   return useQuery({
     queryKey: ["pokemons", offset, limit, filterType],
+    placeholderData: keepPreviousData,
     queryFn: async () => {
       console.log([offset, limit, filterType])
       const { results, totalCount } = await repository.fetchAllPokemons(offset, limit, filterType);
