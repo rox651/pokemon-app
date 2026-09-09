@@ -32,7 +32,6 @@ function RouteComponent() {
     (state) => state.setSelectedPokemonForModal,
   );
 
-
   const [pagination, setPagination] = useState({
     pageIndex: 0,
     pageSize: PAGE_SIZE,
@@ -53,9 +52,8 @@ function RouteComponent() {
   const { data, isLoading: isLoadingPokemons } = useGetAllPokemons(
     pagination.pageIndex * pagination.pageSize,
     pagination.pageSize,
-    filterType
+    filterType,
   );
-
 
   const table = usePagination(
     data?.pokemons,
@@ -70,23 +68,24 @@ function RouteComponent() {
     setFilterType(selectedType);
   };
 
-
   return (
     <div className="">
-      <h1 className="text-3xl lg:text-5xl text-white text-center mt-10">
-        Pokédex
-        simulator
+      <h1 className="text-[80px] text-center lg:text-left lg:text-[110px] text-white  my-10  leading-20 lg:leading-30 lg:w-1/2 break-words ">
+        Pokédex simulator
       </h1>
-      <PokemonControls
-        currentView={currentView}
-        onViewChange={setCurrentView}
-        onFilterChange={handleFilterChange}
-        isLoading={isLoadingPokemons}
-      />
-      <PokemonPagination table={table} isLoading={isLoadingPokemons} />
+      <aside className="flex gap-3 justify-center flex-col lg:flex-row lg:justify-between">
+        <PokemonControls
+          table={table}
+          currentView={currentView}
+          onViewChange={setCurrentView}
+          onFilterChange={handleFilterChange}
+          isLoading={isLoadingPokemons}
+        />
+        <PokemonPagination table={table} isLoading={isLoadingPokemons} />
+      </aside>
       {isLoadingPokemons && currentView === "grid" && <PokemonGridSkeleton />}
       {isLoadingPokemons && currentView === "table" && <PokemonTableSkeleton />}
-      {data?.pokemons && data.pokemons.length > 0 && (
+      {data?.pokemons && data.pokemons.length > 0 && !isLoadingPokemons && (
         <>
           {currentView === "grid" ? (
             <PokemonGridView

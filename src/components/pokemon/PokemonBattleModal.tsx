@@ -9,12 +9,15 @@ import PokemonFighterView from "./PokemonFighterView";
 import PokemonFighterViewSkeleton from "./PokemonFighterViewSkeleton";
 
 import BattleMessage from "./BattleMessage";
-import { DEFAULT_BATTLE_DELAY, TOTAL_POKEMONS } from "@/domain/entities/constant";
+import {
+  DEFAULT_BATTLE_DELAY,
+  TOTAL_POKEMONS,
+} from "@/domain/entities/constant";
 import { generateRandomNumber } from "@/helpers/common/generateRandomNumber";
 
 const PokemonBattleModal = () => {
   const modalRef = useRef<HTMLDivElement | null>(null);
-  const [randomId, setRandomId] = useState<number>()
+  const [randomId, setRandomId] = useState<number>();
 
   const pokemonFromPlayer = useStore((state) => state.pokemonFromPlayer);
   const pokemonFromComputer = useStore((state) => state.pokemonFromComputer);
@@ -23,11 +26,10 @@ const PokemonBattleModal = () => {
     (state) => state.setPokemonFromComputer,
   );
 
-
   const { data: pokemon } = useGetPokemonById({
     id: randomId,
-    enabled: !!randomId
-  })
+    enabled: !!randomId,
+  });
   const { isPlaying, isWin, isLose, isAttacking } = useBattleStatus();
 
   const onClose = () => {
@@ -38,24 +40,22 @@ const PokemonBattleModal = () => {
 
   useEffect(() => {
     if (pokemonFromPlayer) {
-      document.body.style.overflow = 'hidden';
+      document.body.style.overflow = "hidden";
 
       return () => {
-        document.body.style.overflow = '';
+        document.body.style.overflow = "";
       };
     }
   }, [pokemonFromPlayer]);
 
-
   useEffect(() => {
-    if (!pokemon) return
-    setPokemonFromComputer(pokemon)
-
+    if (!pokemon) return;
+    setPokemonFromComputer(pokemon);
 
     return () => {
-      setPokemonFromComputer(null)
-    }
-  }, [pokemon])
+      setPokemonFromComputer(null);
+    };
+  }, [pokemon]);
 
   useEffect(() => {
     let timeoutId: NodeJS.Timeout;
@@ -89,9 +89,7 @@ const PokemonBattleModal = () => {
   };
 
   return (
-    <div
-      className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-2 sm:p-4 lg:p-6"
-    >
+    <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-2 sm:p-4 lg:p-6">
       <BattleMessage type={getBattleMessageType()} />
       <div
         ref={modalRef}
@@ -99,13 +97,25 @@ const PokemonBattleModal = () => {
       >
         {/* Header */}
         <div className="flex flex-col items-center mb-4 sm:mb-6">
-          {isWin && <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-green-500">Win</h1>}
-          {isPlaying && (
-            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900">Battle</h1>
+          {isWin && (
+            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-green-500">
+              Win
+            </h1>
           )}
-          {isLose && <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-red-500">Lose</h1>}
+          {isPlaying && (
+            <h1 className="text-2xl sm:text-3xl lg:text-4xl text-gray-900">
+              Battle!
+            </h1>
+          )}
+          {isLose && (
+            <h1 className="text-2xl sm:text-3xl lg:text-4xl text-red-500">
+              Lose
+            </h1>
+          )}
           {isAttacking && (
-            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900">Attacking</h1>
+            <h1 className="text-2xl sm:text-3xl lg:text-4xl text-gray-900">
+              Attacking
+            </h1>
           )}
         </div>
 
@@ -147,9 +157,9 @@ const PokemonBattleModal = () => {
         <div className="flex justify-center mt-4 sm:mt-6">
           <button
             onClick={onClose}
-            className="cursor-pointer px-5 sm:px-6 py-2.5 sm:py-3 rounded-full bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold transition-colors text-sm sm:text-base"
+            className="cursor-pointer px-5 sm:px-6 py-2.5 sm:py-3 rounded-full bg-[#EC9AFA] hover:bg-gray-300 text-gray-800 font-semibold transition-colors text-sm sm:text-base"
           >
-            Close
+            Escape this battle
           </button>
         </div>
       </div>

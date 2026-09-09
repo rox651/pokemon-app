@@ -16,17 +16,14 @@ export default function PokemonButtonViewChange({
 
   const isGrid = currentView === "grid";
   const nextView = isGrid ? "table" : "grid";
-  const icon = isGrid ? (
-    <MdTableRows className="text-lg mr-2" />
-  ) : (
-    <MdGridView className="text-lg mr-2" />
-  );
+  const icon = isGrid ? <MdTableRows /> : <MdGridView />;
+
   const label = isGrid ? "Switch to table view" : "Switch to grid view";
 
   return (
     <button
       onClick={handleViewChange}
-      className="flex items-center gap-1 px-4 py-2 cursor-pointer bg-blue-500 text-white rounded hover:bg-blue-700 transition duration-300 shadow"
+      className="text-white [&>svg]:text-[#F4FF69] flex gap-x-2 items-center cursor-pointer"
       aria-label={label}
       title={label}
     >

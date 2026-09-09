@@ -6,9 +6,13 @@ import type {
 } from "@/domain/entities/pokemon/";
 
 export interface PokemonRepository {
-  fetchAllPokemons(offset: number, limit: number, type: string | null): Promise<{
-    results: PokemonMetadata[]
-    totalCount: number,
+  fetchAllPokemons(
+    offset: number,
+    limit: number,
+    type: string | null,
+  ): Promise<{
+    results: PokemonMetadata[];
+    totalCount: number;
   }>;
   fetchPokemonByName(name: string): Promise<PokemonAdapted>;
   fetchPokemonById(id: number): Promise<PokemonAdapted>;

@@ -30,11 +30,11 @@ const PokemonCardView = ({ pokemon, onSelect }: PokemonCardViewProps) => {
           {pokemon.id}
         </h3>
         <img
-          className="size-24 object-contain transition-transform group-hover:-rotate-10 group-hover:scale-180   scale-150  "
+          className="w-[200px] h-[140px] object-contain transition-transform group-hover:-rotate-5 group-hover group-hover:scale-150 scale-120"
           src={pokemon.sprites.front_default}
           alt={pokemon.name}
         />
-        <h3 className="relative z-10 text-lg capitalize mb-3 font-black group-hover:rotate-5 transition-all group-hover:-translate-y-1 font-medium  px-3 rounded-xl mt-5">
+        <h3 className="relative z-10 text-[30px] capitalize mb-3  group-hover:rotate-5 transition-all group-hover:-translate-y-1 font-medium  px-3 rounded-xl mt-5">
           {pokemon.name}
         </h3>
       </div>

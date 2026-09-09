@@ -55,10 +55,16 @@ const PokemonStat: React.FC<PokemonStatProps> = ({
     >
       <div className="flex items-center justify-between mb-1">
         <div className="flex items-center gap-1.5 min-w-0">
-          <span className="text-lg sm:text-xl lg:text-2xl flex-shrink-0">{statIcons[name]}</span>
-          <span className="font-semibold text-gray-700 text-xs sm:text-sm">{name}</span>
+          <span className="text-lg sm:text-xl lg:text-2xl flex-shrink-0">
+            {statIcons[name]}
+          </span>
+          <span className="font-semibold text-gray-700 text-xs sm:text-sm">
+            {name}
+          </span>
         </div>
-        <span className="font-bold text-gray-900 text-xs sm:text-sm ml-2 flex-shrink-0">{value}</span>
+        <span className="font-bold text-gray-900 text-xs sm:text-sm ml-2 flex-shrink-0">
+          {value}
+        </span>
       </div>
       <div className="w-full h-2.5 sm:h-3 bg-gray-200 rounded-full shadow-inner overflow-hidden">
         <div

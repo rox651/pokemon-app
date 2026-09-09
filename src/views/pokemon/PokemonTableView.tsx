@@ -24,10 +24,11 @@ const PokemonTableView = ({ table }: PokemonTableViewProps) => {
               {headerGroup.headers.map((header) => (
                 <th
                   key={header.id}
-                  className={`py-2 px-4 text-left ${header.column.getCanSort()
-                    ? "cursor-pointer hover:text-[#F4FF69]"
-                    : ""
-                    }`}
+                  className={`py-2 px-4 text-left ${
+                    header.column.getCanSort()
+                      ? "cursor-pointer hover:text-[#F4FF69]"
+                      : ""
+                  }`}
                   {...(header.column.getCanSort()
                     ? { onClick: header.column.getToggleSortingHandler() }
                     : {})}

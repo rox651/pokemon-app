@@ -1,4 +1,8 @@
-import type { Pokemon, Metadata, PokemonStatType } from "@/domain/entities/pokemon";
+import type {
+  Pokemon,
+  Metadata,
+  PokemonStatType,
+} from "@/domain/entities/pokemon";
 
 export const mockPokemon: Pokemon = {
   name: "pikachu",
@@ -32,12 +36,14 @@ export const mockPokemon: Pokemon = {
       "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png",
   },
   moves: [],
-  stats: [{
-    base_stat: 35,
-    effort: 5,
-    stat: {
-      name: "speed",
-      url: "https://pokeapi.co/api/v2/stat/6/",
-    } satisfies Metadata<PokemonStatType>,
-  }],
+  stats: [
+    {
+      base_stat: 35,
+      effort: 5,
+      stat: {
+        name: "speed",
+        url: "https://pokeapi.co/api/v2/stat/6/",
+      } satisfies Metadata<PokemonStatType>,
+    },
+  ],
 };

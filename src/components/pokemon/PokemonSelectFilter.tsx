@@ -25,18 +25,21 @@ export default function PokemonSelectFilter({
   };
 
   return (
-    <Select onValueChange={handleTypeChange} value={selectedType || "all"}>
-      <SelectTrigger className="w-[180px] bg-[#0A0A0A] text-white">
-        <SelectValue placeholder="Filter by type" />
-      </SelectTrigger>
-      <SelectContent className="bg-[#0A0A0A] text-white">
-        <SelectItem value="all">All Types</SelectItem>
-        {options.map((option) => (
-          <SelectItem key={option.value} value={option.value}>
-            {option.label}
-          </SelectItem>
-        ))}
-      </SelectContent>
-    </Select>
+    <div className="flex items-center gap-3">
+      <span className="text-[#7C7AF4]">Choose your type</span>
+      <Select onValueChange={handleTypeChange} value={selectedType || "all"}>
+        <SelectTrigger className="w-[108px] bg-[#0A0A0A] text-white text-center rounded-full cursor-pointer">
+          <SelectValue placeholder="Filter by type" />
+        </SelectTrigger>
+        <SelectContent className="bg-[#0A0A0A] text-white">
+          <SelectItem value="all">All Types</SelectItem>
+          {options.map((option) => (
+            <SelectItem key={option.value} value={option.value}>
+              {option.label}
+            </SelectItem>
+          ))}
+        </SelectContent>
+      </Select>
+    </div>
   );
 }

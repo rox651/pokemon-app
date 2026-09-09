@@ -20,7 +20,9 @@ const statsMap: Record<PokemonStatType, string> = {
 const PokemonStats = ({ pokemon }: PokemonStatsProps) => {
   return (
     <div className="mt-4 space-y-2">
-      <h3 className="text-sm sm:text-base font-semibold text-gray-700 mb-2">Stats</h3>
+      <h3 className="text-sm sm:text-base font-semibold text-gray-700 mb-2">
+        Stats
+      </h3>
       <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5 sm:gap-3">
         {pokemon.stats.map((stat) => (
           <PokemonStat

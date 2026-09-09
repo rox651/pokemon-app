@@ -20,7 +20,6 @@ export const usePagination = <T>(
 ) => {
   const [sorting, setSorting] = useState<SortingState>([]);
 
-
   const table = useReactTable({
     data: data ?? [],
     columns,
@@ -36,7 +35,6 @@ export const usePagination = <T>(
     autoResetPageIndex: false,
   });
 
-
   const tableState = table.getState();
   const pageSize = tableState.pagination.pageSize;
 
@@ -49,5 +47,5 @@ export const usePagination = <T>(
     }
   }, [filterType, pageSize]);
 
-  return table
+  return table;
 };
