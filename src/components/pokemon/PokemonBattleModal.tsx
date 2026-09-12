@@ -1,19 +1,17 @@
 import { useEffect, useRef, useState } from "react";
-
-import useStore from "@/store";
-import { useGetPokemonById } from "@/hooks/pokemon/useGetPokemonById";
-import { useBattleStatus } from "@/hooks/pokemon/useBattleStatus";
-import { useClickOutside } from "@/hooks/common/useClickOutside";
-
-import PokemonFighterView from "./PokemonFighterView";
-import PokemonFighterViewSkeleton from "./PokemonFighterViewSkeleton";
-
-import BattleMessage from "./BattleMessage";
 import {
   DEFAULT_BATTLE_DELAY,
   TOTAL_POKEMONS,
 } from "@/domain/entities/constant";
+import { unlockOrientation } from "@/helpers/common/changeOrientation";
 import { generateRandomNumber } from "@/helpers/common/generateRandomNumber";
+import { useClickOutside } from "@/hooks/common/useClickOutside";
+import { useBattleStatus } from "@/hooks/pokemon/useBattleStatus";
+import { useGetPokemonById } from "@/hooks/pokemon/useGetPokemonById";
+import useStore from "@/store";
+import BattleMessage from "./BattleMessage";
+import PokemonFighterView from "./PokemonFighterView";
+import PokemonFighterViewSkeleton from "./PokemonFighterViewSkeleton";
 
 const PokemonBattleModal = () => {
   const modalRef = useRef<HTMLDivElement | null>(null);
@@ -34,8 +32,7 @@ const PokemonBattleModal = () => {
 
   const onClose = () => {
     setStatus("idle");
-    if (!document.fullscreenElement) return
-    document.exitFullscreen();
+    unlockOrientation();
   };
 
   useClickOutside(modalRef as React.RefObject<HTMLElement>, () => onClose());

@@ -1,6 +1,7 @@
 import type { PokemonAdapted } from "@/domain/entities/pokemon";
-import useStore from "@/store";
+import { lockLandscape } from "@/helpers/common/changeOrientation";
 import { cn } from "@/helpers/common/cn";
+import useStore from "@/store";
 
 interface PokemonCardViewProps {
   pokemon: PokemonAdapted;
@@ -11,12 +12,11 @@ const PokemonCardView = ({ pokemon, onSelect }: PokemonCardViewProps) => {
   const setStatus = useStore((state) => state.setStatus);
   const setPokemonFromPlayer = useStore((state) => state.setPokemonFromPlayer);
 
-  const onClickPlay = () => {
+  const onClickPlay = async () => {
     setStatus("playing");
     setPokemonFromPlayer(pokemon);
 
-    if (!document.fullscreenEnabled) return
-    document.documentElement.requestFullscreen();
+    await lockLandscape();
   };
 
   return (

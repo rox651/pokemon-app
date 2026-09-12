@@ -1,10 +1,11 @@
-import type { PokemonAdapted } from "@/domain/entities/pokemon";
-import { cn } from "@/helpers/common/cn";
-import { getPokemonTypeColor } from "@/helpers/pokemon/pokemonTypes";
 import { useRef } from "react";
-import { useClickOutside } from "@/hooks/common/useClickOutside";
 import { IoClose } from "react-icons/io5";
 import PokemonStats from "@/components/pokemon/PokemonStats";
+import type { PokemonAdapted } from "@/domain/entities/pokemon";
+import { lockLandscape } from "@/helpers/common/changeOrientation";
+import { cn } from "@/helpers/common/cn";
+import { getPokemonTypeColor } from "@/helpers/pokemon/pokemonTypes";
+import { useClickOutside } from "@/hooks/common/useClickOutside";
 import useStore from "@/store";
 
 interface PokemonModalViewProps {
@@ -18,14 +19,11 @@ const PokemonModalView = ({ pokemon, onClose }: PokemonModalViewProps) => {
 
   const modalRef = useRef<HTMLDivElement | null>(null);
 
-  const onClickPlay = () => {
+  const onClickPlay = async () => {
     setStatus("playing");
     setPokemonFromPlayer(pokemon);
     onClose();
-
-
-    if (!document.fullscreenEnabled) return
-    document.documentElement.requestFullscreen();
+    await lockLandscape();
   };
 
   useClickOutside(modalRef as React.RefObject<HTMLElement>, () => onClose());
