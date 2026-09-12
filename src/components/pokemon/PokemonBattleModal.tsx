@@ -88,59 +88,40 @@ const PokemonBattleModal = () => {
   };
 
   return (
-    <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center ">
+    <div className="@container fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center ">
       <BattleMessage type={getBattleMessageType()} />
       <div
         ref={modalRef}
-        className="relative bg-white rounded-lg sm:rounded-xl shadow-lg p-3 sm:p-4 lg:p-6 w-full h-screen  overflow-y-auto flex flex-col justify-center"
+        className="relative bg-white rounded-lg sm:rounded-xl shadow-lg p-3 sm:p-4 @min-[640px]:p-4 @min-[1024px]:p-6 w-full h-screen overflow-y-auto flex flex-col justify-center"
       >
-        {/* Header */}
-        <div className="flex flex-col items-center mb-4 sm:mb-6">
+        <div className="flex flex-col items-center mb-2 sm:mb-4 @min-[640px]:mb-3">
           {isWin && (
-            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-green-500">
+            <h1 className="text-2xl sm:text-3xl @min-[640px]:text-3xl @min-[1024px]:text-4xl font-bold text-green-500">
               Win
             </h1>
           )}
           {isPlaying && (
-            <h1 className="text-2xl sm:text-3xl lg:text-7xl text-gray-900">
+            <h1 className="text-2xl sm:text-3xl @min-[640px]:text-4xl @min-[1024px]:text-7xl text-gray-900">
               Battle!
             </h1>
           )}
           {isLose && (
-            <h1 className="text-2xl sm:text-3xl lg:text-4xl text-red-500">
+            <h1 className="text-2xl sm:text-3xl @min-[640px]:text-3xl @min-[1024px]:text-4xl text-red-500">
               Lose
             </h1>
           )}
           {isAttacking && (
-            <h1 className="text-2xl sm:text-3xl lg:text-4xl text-gray-900">
+            <h1 className="text-2xl sm:text-3xl @min-[640px]:text-3xl @min-[1024px]:text-4xl text-gray-900">
               Attacking
             </h1>
           )}
         </div>
 
-        {/* Desktop Layout: Side by side with VS in center */}
-        <div className="hidden lg:grid lg:grid-cols-2 lg:gap-8 lg:items-center lg:relative">
-          <div className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10">
-            <div className="w-16 h-16 rounded-full bg-gradient-to-br from-red-500 to-yellow-400 flex items-center justify-center shadow-lg ring-4 ring-white">
-              <span className="text-white font-extrabold text-xl drop-shadow">
-                VS
-              </span>
-            </div>
-          </div>
+        <div className="flex flex-col gap-4 @min-[640px]:grid @min-[640px]:grid-cols-2 @min-[640px]:gap-8 @min-[640px]:items-center @min-[640px]:relative">
           <PokemonFighterView isPlayer pokemon={pokemonFromPlayer} />
-          {pokemonFromComputer ? (
-            <PokemonFighterView pokemon={pokemonFromComputer} />
-          ) : (
-            <PokemonFighterViewSkeleton />
-          )}
-        </div>
-
-        {/* Mobile Layout: Stacked vertically with VS between */}
-        <div className="lg:hidden flex flex-col gap-4">
-          <PokemonFighterView isPlayer pokemon={pokemonFromPlayer} />
-          <div className="flex justify-center -my-2 relative z-10">
-            <div className="w-14 h-14 rounded-full bg-gradient-to-br from-red-500 to-yellow-400 flex items-center justify-center shadow-lg ring-2 ring-white">
-              <span className="text-white font-extrabold text-base drop-shadow">
+          <div className="flex justify-center -my-2 relative z-10 @min-[640px]:pointer-events-none @min-[640px]:absolute @min-[640px]:left-1/2 @min-[640px]:top-1/2 @min-[640px]:-translate-x-1/2 @min-[640px]:-translate-y-1/2 @min-[640px]:m-0">
+            <div className="w-14 h-14 @min-[640px]:w-16 @min-[640px]:h-16 rounded-full bg-gradient-to-br from-red-500 to-yellow-400 flex items-center justify-center shadow-lg ring-2 @min-[640px]:ring-4 ring-white">
+              <span className="text-white font-extrabold text-base @min-[640px]:text-xl drop-shadow">
                 VS
               </span>
             </div>

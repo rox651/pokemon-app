@@ -27,13 +27,13 @@ const PokemonFighterView = ({
 
 
   return (
-    <div className={cn("w-full flex flex-col items-center px-10 static", className)}>
+    <div className={cn("w-full flex flex-col items-center px-4 @min-[640px]:px-6 @min-[1024px]:px-10 static", className)}>
       <div className="w-full flex flex-col items-center rounded-lg sm:rounded-xl  p-4 sm:p-5">
         <h3 className="relative z-10 text-base sm:text-2xl capitalize mt-3 mb-3 ">
           {pokemon.name}
         </h3>
         <img
-          className={cn("w-24 h-24 sm:w-28 sm:h-28 lg:w-40 lg:h-40 object-contain ", isPlayer && "-scale-x-[1]")}
+          className={cn("w-24 h-24 sm:w-28 sm:h-28 @min-[640px]:w-32 @min-[640px]:h-32 @min-[1024px]:w-40 @min-[1024px]:h-40 object-contain ", isPlayer && "-scale-x-[1]")}
           src={pokemon.sprites.front_default}
           alt={pokemon.name}
         />
