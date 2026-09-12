@@ -14,6 +14,9 @@ const PokemonCardView = ({ pokemon, onSelect }: PokemonCardViewProps) => {
   const onClickPlay = () => {
     setStatus("playing");
     setPokemonFromPlayer(pokemon);
+
+    if (!document.fullscreenEnabled) return
+    document.documentElement.requestFullscreen();
   };
 
   return (

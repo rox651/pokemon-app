@@ -34,6 +34,8 @@ const PokemonBattleModal = () => {
 
   const onClose = () => {
     setStatus("idle");
+    if (!document.fullscreenElement) return
+    document.exitFullscreen();
   };
 
   useClickOutside(modalRef as React.RefObject<HTMLElement>, () => onClose());
@@ -89,11 +91,11 @@ const PokemonBattleModal = () => {
   };
 
   return (
-    <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-2 sm:p-4 lg:p-6">
+    <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center ">
       <BattleMessage type={getBattleMessageType()} />
       <div
         ref={modalRef}
-        className="relative bg-white rounded-lg sm:rounded-xl shadow-lg p-3 sm:p-4 lg:p-6 w-full max-w-5xl max-h-[98vh] sm:max-h-[95vh] overflow-y-auto"
+        className="relative bg-white rounded-lg sm:rounded-xl shadow-lg p-3 sm:p-4 lg:p-6 w-full h-screen  overflow-y-auto flex flex-col justify-center"
       >
         {/* Header */}
         <div className="flex flex-col items-center mb-4 sm:mb-6">
@@ -103,7 +105,7 @@ const PokemonBattleModal = () => {
             </h1>
           )}
           {isPlaying && (
-            <h1 className="text-2xl sm:text-3xl lg:text-4xl text-gray-900">
+            <h1 className="text-2xl sm:text-3xl lg:text-7xl text-gray-900">
               Battle!
             </h1>
           )}
@@ -120,7 +122,7 @@ const PokemonBattleModal = () => {
         </div>
 
         {/* Desktop Layout: Side by side with VS in center */}
-        <div className="hidden lg:grid lg:grid-cols-2 lg:gap-8 lg:items-start lg:relative">
+        <div className="hidden lg:grid lg:grid-cols-2 lg:gap-8 lg:items-center lg:relative">
           <div className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10">
             <div className="w-16 h-16 rounded-full bg-gradient-to-br from-red-500 to-yellow-400 flex items-center justify-center shadow-lg ring-4 ring-white">
               <span className="text-white font-extrabold text-xl drop-shadow">
@@ -154,10 +156,10 @@ const PokemonBattleModal = () => {
         </div>
 
         {/* Close Button */}
-        <div className="flex justify-center mt-4 sm:mt-6">
+        <div className="flex justify-center mt-4 sm:mt-6 fixed right-5 bottom-5 z-50">
           <button
             onClick={onClose}
-            className="cursor-pointer px-5 sm:px-6 py-2.5 sm:py-3 rounded-full bg-[#EC9AFA] hover:bg-gray-300 text-gray-800 font-semibold transition-colors text-sm sm:text-base"
+            className="cursor-pointer px-5 sm:px-6 py-2.5 sm:py-3 rounded-full shadow-lg bg-[#EC9AFA] hover:bg-gray-300 text-gray-800 font-semibold transition-colors text-sm sm:text-base"
           >
             Escape this battle
           </button>

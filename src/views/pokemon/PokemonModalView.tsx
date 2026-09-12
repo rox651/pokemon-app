@@ -22,6 +22,10 @@ const PokemonModalView = ({ pokemon, onClose }: PokemonModalViewProps) => {
     setStatus("playing");
     setPokemonFromPlayer(pokemon);
     onClose();
+
+
+    if (!document.fullscreenEnabled) return
+    document.documentElement.requestFullscreen();
   };
 
   useClickOutside(modalRef as React.RefObject<HTMLElement>, () => onClose());

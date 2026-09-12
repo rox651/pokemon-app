@@ -48,6 +48,10 @@ function RouteComponent() {
     setSelectedPokemon(pokemon);
   };
 
+  const onCloseBattle = () => {
+
+  }
+
   const columns = pokemonColumns(onSelect);
   const { data, isLoading: isLoadingPokemons } = useGetAllPokemons(
     pagination.pageIndex * pagination.pageSize,

@@ -32,7 +32,9 @@ export const createPokemonSlice: StateCreator<
   pokemonFromComputer: null,
   playerMaxHp: null,
   computerMaxHp: null,
-  setStatus: (status) => set({ status }),
+  setStatus: (status) => {
+    set({ status })
+  },
   setPokemonFromPlayer: (pokemon) => set({ pokemonFromPlayer: pokemon }),
   setPokemonFromComputer: (pokemon) => set({ pokemonFromComputer: pokemon }),
   selectedPokemonForModal: null,

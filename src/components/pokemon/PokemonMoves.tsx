@@ -3,12 +3,13 @@ import { getPokemonTypeColor } from "@/helpers/pokemon/pokemonTypes";
 import type { Move, PokemonAdapted } from "@/domain/entities/pokemon";
 import { GiBroadsword, GiMagicSwirl } from "react-icons/gi";
 import { MdAutoFixHigh } from "react-icons/md";
-import type { ReactNode } from "react";
+import type { Dispatch, ReactNode, SetStateAction } from "react";
 import useStore from "@/store";
 import { useBattleStatus } from "@/hooks/pokemon/useBattleStatus";
 
 interface PokemonMovesProps {
   pokemon: PokemonAdapted;
+  setIsOpenMoves: Dispatch<SetStateAction<boolean>>
 }
 
 const categoryIcon: Record<string, ReactNode> = {
@@ -17,7 +18,7 @@ const categoryIcon: Record<string, ReactNode> = {
   status: <MdAutoFixHigh className="text-purple-400" />,
 };
 
-export const PokemonMoves = ({ pokemon }: PokemonMovesProps) => {
+export const PokemonMoves = ({ pokemon, setIsOpenMoves }: PokemonMovesProps) => {
   const attack = useStore((state) => state.attack);
   const pokemonMoves = pokemon.moves.map((m) => m.move.name);
   const { data: moves, isLoading: isLoadingMoves } = useGetPokemonsMoves(
@@ -37,6 +38,8 @@ export const PokemonMoves = ({ pokemon }: PokemonMovesProps) => {
     if (!pokemonMove) return;
 
     attack(pokemonMove);
+
+    setIsOpenMoves(false)
   };
 
   return (
